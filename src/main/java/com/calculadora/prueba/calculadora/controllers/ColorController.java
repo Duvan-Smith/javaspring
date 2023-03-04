@@ -11,8 +11,8 @@ public class ColorController {
     private static List<ColorDto> colorDtos = new ArrayList<>();
 
     public ColorController() {
-        colorDtos.add(new ColorDto(1,"red"));
-        colorDtos.add(new ColorDto(2,"blue"));
+        colorDtos.add(new ColorDto(1,"red","199, 0, 57"));
+        colorDtos.add(new ColorDto(2,"blue","51, 113, 255"));
     }
 
     @GetMapping("/colores")
@@ -55,5 +55,15 @@ public class ColorController {
         colorDtos.remove(color);
 
         return "Color eliminado.";
+    }
+
+    @GetMapping("/colores/{id}/{name}")
+    public String getRgbColor(@PathVariable("id") Integer id, @PathVariable("name") String name){
+        return colorDtos.stream()
+                .filter(c->c.getIdColor().equals(id))
+                .filter(c->c.getColor().equals(name))
+                .findFirst()
+                .get()
+                .getRgb();
     }
 }
