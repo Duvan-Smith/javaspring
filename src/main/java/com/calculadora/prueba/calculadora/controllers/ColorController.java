@@ -66,4 +66,13 @@ public class ColorController {
                 .get()
                 .getRgb();
     }
+
+    @GetMapping("/coloresQuery")
+    public String getRgbColor(@RequestParam("name") String name){
+        return colorDtos.stream()
+                .filter(c->c.getColor().equals(name))
+                .findFirst()
+                .get()
+                .getRgb();
+    }
 }
